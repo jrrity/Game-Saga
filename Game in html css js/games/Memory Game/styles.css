@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 350px;
+}
+
+h1 {
+    margin: 0 0 20px;
+    color: #333;
+    font-size: 28px;
+}
+
+#startImage {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#setup {
+    margin-bottom: 20px;
+}
+
+#setup input, #setup select, #setup button {
+    width: 100%; /* Ensure full width */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+#setup button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#setup button:hover {
+    background-color: #0056b3;
+}
+
+#gameBoard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+.card {
+    width: 60px;
+    height: 90px;
+    margin: 5px;
+    background-color: #007bff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+.card.flipped {
+    background-color: #ffffff;
+    color: #007bff;
+    transform: scale(1.1);
+}
+
+#controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#controls button {
+    width: 45%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#controls button:hover {
+    background-color: #218838;
+}
+
+#timer, #result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}

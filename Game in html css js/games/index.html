@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Index with Dark Mode Toggle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Light mode (default) */
+        body.light-mode {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Dark mode */
+        body.dark-mode {
+            background-color: #1e1e1e;
+            color: #ccc;
+        }
+
+        header {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: inherit;
+            font-size: 2.5rem;
+        }
+
+        .main {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        /* Centered game grid with equal-size square blocks */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Equal-sized square game blocks */
+        .game-item {
+            width: 180px;
+            height: 180px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, background-color 0.3s, color 0.3s;
+        }
+
+        /* In dark mode, the game block will have a darker background */
+        body.dark-mode .game-item {
+            background-color: #2c2c2c;
+            color: #eee; /* Lighter text color inside game blocks */
+        }
+
+        .game-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-item img {
+            max-width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .game-item a {
+            text-decoration: none;
+            color: #F97316;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* In dark mode, change the text color inside game blocks */
+        body.dark-mode .game-item a {
+            color: #ffa726;
+        }
+
+        footer {
+            margin-top: 20px;
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Toggle switch container on top-right */
+        .toggle-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        /* The switch - the parent div */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        /* Hide the default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        /* Sun and Moon icons */
+        .slider:before {
+            position: absolute;
+            content: url('images/sun.svg');
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+
+        /* When the checkbox is checked, move the slider to the right */
+        input:checked + .slider {
+            background-color: #555;
+        }
+
+        /* Change icon and move the circle (for dark mode) */
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            content: url('images/moon.svg');
+        }
+
+        /* Rounded slider */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="light-mode">
+
+    <!-- Dark mode toggle switch -->
+    <div class="toggle-container">
+        <label class="switch">
+            <input type="checkbox" id="modeToggle">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <header>
+        <h1>Welcome to the Game Zone</h1>
+    </header>
+
+    <main>
+        <div class="main">
+            <div class="game-grid">
+                <div class="game-item">
+                <a href="2048/index.html">
+                    <img src="prac.png" alt="2048 Game">
+                    <a href="2048/index.html">2048</a>
+                </a>
+                </div>
+                <div class="game-item">
+                <a href="Find Diamonds/index.html">
+                    <img src="prac.png" alt="Find Diamonds">
+                    <a href="Find Diamonds/index.html">Find Diamonds</a>
+                </a>
+                </div>
+                <div class="game-item">
+                <a href="Flappy Bird/index.html">
+                    <img src="prac.png" alt="Flappy Bird">
+                    <a href="Flappy Bird/index.html">Flappy Bird</a>
+                </a>
+                </div>
+                <div class="game-item">
+                <a href="Guess Me/index.html">
+                    <img src="prac.png" alt="Guess Me">
+                    <a href="Guess Me/index.html">Guess Me</a>
+                </a>
+                </div>
+                <div class="game-item">
+                    <a href="Hangman/index.html">
+                    <img src="prac.png" alt="Hangman">
+                    <a href="Hangman/index.html">Hangman</a></a>
+                </div>
+                <div class="game-item">
+                <a href="Memory Game/index.html">
+                    <img src="prac.png" alt="Memory Game">
+                    <a href="Memory Game/index.html">Memory Game</a>
+                </a>
+                </div>
+                <div class="game-item">
+                <a href="Minesweeper/index.html">
+                    <img src="prac.png" alt="Minesweeper">
+                    <a href="Minesweeper/index.html">Minesweeper</a>
+                </a>
+                </div>
+                <div class="game-item">
+                <a href="Pong (AI NOT SMOOTH)/index.html">
+                    <img src="prac.png" alt="Pong">
+                    <a href="Pong (AI NOT SMOOTH)/index.html">Pong</a>
+                </a>
+                </div>
+                <div class="game-item">
+                <a href="Rock-Paper-Scissors/index.html">
+                    <img src="prac.png" alt="Rock Paper Scissor">
+                    <a href="Rock-Paper-Scissors/index.html">Rock Paper Scissor</a>
+                </a>
+                </div>
+                <div class="game-item">
+                <a href="Snake Game/index.html">
+                    <img src="prac.png" alt="Snake Game">
+                    <a href="Snake Game/index.html">Snake Game</a>
+                </a>
+                </div>
+                <div class="game-item">
+                <a href="Snake Game Open Walls/">
+                    <img src="prac.png" alt="Snake Game 2.0">
+                    <a href="Snake Game Open Walls/index.html">Snake Game 2.0</a>
+                </a>
+                </div>
+                <div class="game-item">
+                <a href="Tic-Tac-Toe/index.html">
+                    <img src="prac.png" alt="Tic-Tac-Toe">
+                    <a href="tic-tac-toe.html">Tic-Tac-Toe</a>
+                </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Game Zone</p>
+    </footer>
+
+    <script>
+        const toggleSwitch = document.getElementById('modeToggle');
+        const bodyElement = document.body;
+
+        // Check if dark mode is saved in localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            bodyElement.classList.remove('light-mode');
+            bodyElement.classList.add('dark-mode');
+            toggleSwitch.checked = true;
+        }
+
+        // Toggle dark and light mode
+        toggleSwitch.addEventListener('change', function() {
+            if (this.checked) {
+                bodyElement.classList.remove('light-mode');
+                bodyElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark'); // Save to localStorage
+            } else {
+                bodyElement.classList.remove('dark-mode');
+                bodyElement.classList.add('light-mode');
+                localStorage.setItem('theme', 'light'); // Save to localStorage
+            }
+        });
+    </script>
+
+</body>
+</html>

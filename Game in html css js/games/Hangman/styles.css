@@ -1,0 +1,169 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#hangmanImage {
+    margin: 20px 0;
+}
+
+#wordDisplay {
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+#totalCharacters {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+input {
+    font-size: 1em; /* Adjust the font size as needed */
+    padding: 10px;    /* Add padding to make the box larger */
+    width: 140px;      /* Adjust width to fit the placeholder text */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+button {
+    font-size: 1em;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.resetButton {
+    font-size: 1em;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    display: inline-block; /* Always visible */
+}
+
+.tryAgainButton {
+    display: none; /* Initially hidden */
+    font-size: 1em;
+    padding: 10px 20px;
+    margin: 10px auto;
+    cursor: pointer;
+    text-align: center; /* Center text inside the button */
+    
+}
+.hangman-figure {
+    position: relative;
+    width: 200px;
+    height: 250px;
+    margin: 0 auto;
+}
+
+#gallows {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.vertical-bar {
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    background: #333;
+    left: 20%;
+}
+
+.horizontal-bar {
+    position: absolute;
+    width: 100px;
+    height: 10px;
+    background: #333;
+    top: 0;
+    left: 20%;
+}
+
+.diagonal-bar {
+    position: absolute;
+    width: 70px;
+    height: 10px;
+    background: #333;
+    top: 50px;
+    left: 20%;
+    transform: rotate(-45deg);
+    transform-origin: left top;
+}
+.hanging-line {
+    position: absolute;
+    width: 5px;
+    height: 50px;
+    background: #333;
+    top: 0;
+    left: calc(20% + 100px);
+}
+#head {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 10px solid #333;
+    top: 45px;
+    left: 107px;
+}
+
+#body {
+    position: absolute;
+    width: 10px;
+    height: 95px;
+    background: #333;
+    top: 110px;
+    left: 135px;
+}
+
+#leftArm, #rightArm {
+    position: absolute;
+    width: 60px;
+    height: 10px;
+    background: #333;
+    top: 130px;
+}
+
+#leftArm {
+    left: 81px;
+    transform: rotate(30deg);
+}
+
+#rightArm {
+    left: 139px;
+    transform: rotate(-30deg);
+}
+
+#leftLeg, #rightLeg {
+    position: absolute;
+    width: 60px;
+    height: 10px;
+    background: #333;
+    top: 220px;
+}
+
+#leftLeg {
+    left: 81px;
+    top: 210px;
+    transform: rotate(-30deg);
+}
+
+#rightLeg {
+    left: 139px;
+    top: 210px;
+    transform: rotate(30deg);
+}
+
+.hidden {
+    display: none;
+}

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            color: #333;
+        }
+        .game-container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            background-color: #ffffffda;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+            font-weight: 600;
+        }
+        .mode-selection, .player-input, .game-area, .scoreboard {
+            margin: 20px;
+        }
+        .player-input{
+            justify-content: space-around;
+            align-items: center;
+        }
+        .scoreboard {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .scoreboard div {
+            flex: 1;
+            margin: 0 10px;
+        }
+        button {
+            font-size: 1em;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.selected {
+            background-color: #45a049;
+            font-weight: bold;
+        }
+        input {
+            padding: 10px;
+            font-size: 1em;
+            width: 150px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #message {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        #guessInput {
+            display: none;
+        }
+        #newGame, #resetScore {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #f44336;
+        }
+        #newGame:hover, #resetScore:hover {
+            background-color: #d32f2f;
+        }
+        #resetScore {
+            right: 100px;
+            background-color: #ff9800;
+        }
+        #resetScore:hover {
+            background-color: #e68900;
+        }
+        #setName {
+            background-color: #2196F3;
+        }
+        #setName:hover {
+            background-color: #1976D2;
+        }
+        #startGame {
+            background-color: #4CAF50;
+        }
+        #startGame:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Number Guessing Game</h1>
+        <div class="mode-selection">
+            <button id="easyMode">Easy (1-20)</button>
+            <button id="mediumMode">Medium (1-100)</button>
+            <button id="hardMode">Hard (1-1000)</button>
+        </div>
+        <div class="player-input">
+            <input type="text" id="player1" placeholder="Player 1 Name">
+            <input type="text" id="player2" placeholder="Player 2 Name">
+        </div>
+        
+        <div class="player-input">
+            <button id="setName">Set Name</button>
+            <button id="startGame">Start Game</button>
+        </div>
+        <div class="scoreboard">
+            <div>
+                <h3 id="player1ScoreLabel">Player 1: 0</h3>
+            </div>
+            <div>
+                <h3 id="player2ScoreLabel">Player 2: 0</h3>
+            </div>
+        </div>
+        <div class="game-area">
+            <div id="currentPlayer"></div>
+            <input type="number" id="guessInput" placeholder="Enter your guess">
+            <button id="submitGuess">Submit Guess</button>
+            <div id="message"></div>
+        </div>
+        <br><br>
+        <button id="newGame">Reset</button>
+        <button id="resetScore">Reset Score</button>
+    </div>
+    <script>
+        const easyModeBtn = document.getElementById('easyMode');
+        const mediumModeBtn = document.getElementById('mediumMode');
+        const hardModeBtn = document.getElementById('hardMode');
+        const player1Input = document.getElementById('player1');
+        const player2Input = document.getElementById('player2');
+        const setNameBtn = document.getElementById('setName');
+        const startGameBtn = document.getElementById('startGame');
+        const guessInput = document.getElementById('guessInput');
+        const submitGuessBtn = document.getElementById('submitGuess');
+        const message = document.getElementById('message');
+        const currentPlayerDisplay = document.getElementById('currentPlayer');
+        const newGameBtn = document.getElementById('newGame');
+        const resetScoreBtn = document.getElementById('resetScore');
+        const player1ScoreLabel = document.getElementById('player1ScoreLabel');
+        const player2ScoreLabel = document.getElementById('player2ScoreLabel');
+
+        let gameMode, targetNumber, currentPlayer, players, maxNumber;
+        let scores = { player1: 0, player2: 0 };
+
+        easyModeBtn.addEventListener('click', () => setGameMode('easy', 20));
+        mediumModeBtn.addEventListener('click', () => setGameMode('medium', 100));
+        hardModeBtn.addEventListener('click', () => setGameMode('hard', 1000));
+        setNameBtn.addEventListener('click', setPlayerNames);
+        startGameBtn.addEventListener('click', startGame);
+        submitGuessBtn.addEventListener('click', submitGuess);
+        newGameBtn.addEventListener('click', resetGame);
+        resetScoreBtn.addEventListener('click', resetScore);
+
+        function setGameMode(mode, max) {
+            gameMode = mode;
+            maxNumber = max;
+            [easyModeBtn, mediumModeBtn, hardModeBtn].forEach(btn => btn.classList.remove('selected'));
+            document.getElementById(`${mode}Mode`).classList.add('selected');
+            message.textContent = `${mode.charAt(0).toUpperCase() + mode.slice(1)} mode selected. Range: 1-${max}`;
+        }
+
+        function setPlayerNames() {
+            players = [player1Input.value || "Player 1", player2Input.value || "Player 2"];
+            player1ScoreLabel.textContent = `${players[0]}: ${scores.player1}`;
+            player2ScoreLabel.textContent = `${players[1]}: ${scores.player2}`;
+        }
+
+        function startGame() {
+            if (!gameMode) {
+                message.textContent = "Please select a game mode first.";
+                return;
+            }
+            if (!players) {
+                message.textContent = "Please set player names first.";
+                return;
+            }
+            currentPlayer = players[0];
+            targetNumber = Math.floor(Math.random() * maxNumber) + 1;
+            guessInput.style.display = 'inline';
+            submitGuessBtn.style.display = 'inline';
+            currentPlayerDisplay.textContent = `${currentPlayer}'s turn`;
+            message.textContent = `Guess a number between 1 and ${maxNumber}`;
+            [easyModeBtn, mediumModeBtn, hardModeBtn].forEach(btn => btn.disabled = true);
+        }
+
+        function submitGuess() {
+            const guess = parseInt(guessInput.value);
+            if (isNaN(guess) || guess < 1 || guess > maxNumber) {
+                message.textContent = `Please enter a valid number between 1 and ${maxNumber}.`;
+                return;
+            }
+
+            if (guess === targetNumber) {
+                message.textContent = `Congratulations, ${currentPlayer}! You guessed the correct number: ${targetNumber}`;
+                updateScore(currentPlayer);
+                endGame();
+            } else if (guess < targetNumber) {
+                message.textContent = "Higher!";
+                switchPlayer();
+            } else {
+                message.textContent = "Lower!";
+                switchPlayer();
+            }
+
+            guessInput.value = '';
+        }
+
+        function switchPlayer() {
+            currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
+            currentPlayerDisplay.textContent = `${currentPlayer}'s turn`;
+        }
+
+        function updateScore(winner) {
+            if (winner === players[0]) {
+                scores.player1++;
+                player1ScoreLabel.textContent = `${players[0]}: ${scores.player1}`;
+            } else {
+                scores.player2++;
+                player2ScoreLabel.textContent = `${players[1]}: ${scores.player2}`;
+            }
+        }
+
+        function endGame() {
+            guessInput.style.display = 'none';
+            submitGuessBtn.style.display = 'none';
+            currentPlayerDisplay.textContent = '';
+            [easyModeBtn, mediumModeBtn, hardModeBtn].forEach(btn => btn.disabled = false);
+        }
+
+        function resetGame() {
+            gameMode = null;
+            players = null;
+            scores = { player1: 0, player2: 0 };
+            player1ScoreLabel.textContent = 'Player 1: 0';
+            player2ScoreLabel.textContent = 'Player 2: 0';
+            [easyModeBtn, mediumModeBtn, hardModeBtn].forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('selected');
+            });
+            guessInput.style.display = 'none';
+            submitGuessBtn.style.display = 'none';
+            message.textContent = '';
+            currentPlayerDisplay.textContent = '';
+            player1Input.value = '';
+            player2Input.value = '';
+        }
+
+        function resetScore() {
+            scores = { player1: 0, player2: 0 };
+            player1ScoreLabel.textContent = `${players ? players[0] : 'Player 1'}: 0`;
+            player2ScoreLabel.textContent = `${players ? players[1] : 'Player 2'}: 0`;
+        }
+
+        // Initial setup
+        setGameMode('easy', 20);
+    </script>
+</body>
+</html>

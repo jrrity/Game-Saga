@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 30px;
+    width: 440px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.containe {
+    text-align: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1 {
+    color: #333;
+}
+
+input, select, button {
+    margin: 10px;
+    padding: 5px;
+}
+
+.score-board {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.choices {
+    margin: 20px 0;
+}
+.imgg{
+        width: 440px;
+}
+.choice {
+    margin: 0 10px;
+    padding: 0;
+    text-align: center;
+    width: 100px;
+    display: inline-block;
+    position: relative;
+    
+}
+#playerChoiceImage{
+    margin-left: -40px;
+    margin-right: 80px
+}
+
+.choice img {
+    display: block;
+    width: 100%;
+    height: 100px; /* Adjust size as needed */
+    object-fit: cover; /* Ensure image covers the block */
+}
+
+.choice span {
+    display: block;
+    margin-top: 6px;
+    font-weight: bold;
+}
+
+.result-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choice-display {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%; /* Adjust width as needed */
+}
+
+.choice-display div {
+    text-align: center;
+}
+
+.choice-display img {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    object-fit: cover;
+}
+
+#resultText {
+    margin-top: 20px;
+    font-weight: bold;
+}
+#gameImage {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+/* Hide the game image when the game starts */
+#gameImage.hidden {
+    display: none;
+}
